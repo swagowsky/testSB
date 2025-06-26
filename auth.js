@@ -4,49 +4,48 @@
     try {
       const urlParams = new URLSearchParams(window.location.search);
       const paramsObject = Object.fromEntries(urlParams);
-      const { sberIDRedirect, code, token, to, state, redirectUrl, runId } =
-      
-      paramsObject
+      const { sberIDRedirect, code, token, to, state, redirectUrl, runId } = paramsObject;
 
-      console.log('PARAMS: ' ,Object.fromEntries(urlParams))
+      console.log('PARAMS: ', Object.fromEntries(urlParams));
 
       //OPA//
 
+      // --- Выводим параметры на страницу --------------------------------------
+      const paramsContainer = document.createElement('div');
+      paramsContainer.style.marginTop = '2rem';
+      paramsContainer.style.padding = '1rem';
+      paramsContainer.style.backgroundColor = '#f4f4f4';
+      paramsContainer.style.borderRadius = '8px';
+      paramsContainer.style.fontFamily = 'monospace';
 
+      const heading = document.createElement('h3');
+      heading.textContent = 'Параметры из URL:';
+      paramsContainer.appendChild(heading);
 
+      const ul = document.createElement('ul');
 
+      for (const [key, value] of Object.entries(paramsObject)) {
+        const li = document.createElement('li');
+        li.textContent = `${key}: ${value}`;
+        ul.appendChild(li);
+      }
 
-          // --- Выводим параметры на страницу --------------------------------------
-          const paramsContainer = document.createElement('div');
-          paramsContainer.style.marginTop = '2rem';
-          paramsContainer.style.padding = '1rem';
-          paramsContainer.style.backgroundColor = '#f4f4f4';
-          paramsContainer.style.borderRadius = '8px';
-          paramsContainer.style.fontFamily = 'monospace';
-    
-          const heading = document.createElement('h3');
-          heading.textContent = 'Параметры из URL:';
-          paramsContainer.appendChild(heading);
-    
-          const ul = document.createElement('ul');
-    
-          for (const [key, value] of Object.entries(paramsObject)) {
-            const li = document.createElement('li');
-            li.textContent = `${key}: ${value}`;
-            ul.appendChild(li);
-          }
-    
-          paramsContainer.appendChild(ul);
-    
-          // Ищем контейнер для вставки или вставляем перед </body>
-          const contentDiv = document.querySelector('#content') || document.body;
-          contentDiv.insertAdjacentElement('afterend', paramsContainer);
+      paramsContainer.appendChild(ul);
 
-          // --- Выводим параметры на страницу --------------------------------------
-      
+      // Ищем контейнер для вставки, если нет #content — вставляем в конец body
+      const contentDiv = document.querySelector('#content');
+      if (contentDiv) {
+        contentDiv.insertAdjacentElement('afterend', paramsContainer);
+      } else {
+        // Вставляем в конец <body>
+        document.body.insertAdjacentElement('beforeend', paramsContainer);
+      }
+
+      // --- Выводим параметры на страницу --------------------------------------
+
       const CUSTOM_BASE_URL_KEY =
         JSON.parse(localStorage.getItem('flutter.CUSTOM_BASE_URL_KEY')) ||
-        'https://gwse.aurora.wfmt.ru'; 
+        'https://gwse.aurora.wfmt.ru';
 
       console.log('Base URL: ', CUSTOM_BASE_URL_KEY);
 
@@ -72,7 +71,7 @@
 
         setTimeout(() => {
           window.location.href = finalUrl;
-        }, 5*60*1000);
+        }, 5 * 60 * 1000);
         return;
       }
 
