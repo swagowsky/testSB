@@ -3,8 +3,10 @@
   async function init() {
     try {
       const urlParams = new URLSearchParams(window.location.search);
+      const paramsObject = Object.fromEntries(urlParams);
       const { sberIDRedirect, code, token, to, state, redirectUrl, runId } =
-        Object.fromEntries(urlParams);
+      
+      paramsObject
 
       console.log('PARAMS: ' ,Object.fromEntries(urlParams))
 
