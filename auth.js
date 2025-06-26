@@ -8,10 +8,12 @@
 
       console.log('PARAMS: ' ,Object.fromEntries(urlParams))
 
+      //OPA//
 
 
 
-      
+
+
           // --- Выводим параметры на страницу --------------------------------------
           const paramsContainer = document.createElement('div');
           paramsContainer.style.marginTop = '2rem';
