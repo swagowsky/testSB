@@ -7,6 +7,37 @@
         Object.fromEntries(urlParams);
 
       console.log('PARAMS: ' ,Object.fromEntries(urlParams))
+
+
+
+
+          // --- Выводим параметры на страницу --------------------------------------
+          const paramsContainer = document.createElement('div');
+          paramsContainer.style.marginTop = '2rem';
+          paramsContainer.style.padding = '1rem';
+          paramsContainer.style.backgroundColor = '#f4f4f4';
+          paramsContainer.style.borderRadius = '8px';
+          paramsContainer.style.fontFamily = 'monospace';
+    
+          const heading = document.createElement('h3');
+          heading.textContent = 'Параметры из URL:';
+          paramsContainer.appendChild(heading);
+    
+          const ul = document.createElement('ul');
+    
+          for (const [key, value] of Object.entries(paramsObject)) {
+            const li = document.createElement('li');
+            li.textContent = `${key}: ${value}`;
+            ul.appendChild(li);
+          }
+    
+          paramsContainer.appendChild(ul);
+    
+          // Ищем контейнер для вставки или вставляем перед </body>
+          const contentDiv = document.querySelector('#content') || document.body;
+          contentDiv.insertAdjacentElement('afterend', paramsContainer);
+
+          // --- Выводим параметры на страницу --------------------------------------
       
       const CUSTOM_BASE_URL_KEY =
         JSON.parse(localStorage.getItem('flutter.CUSTOM_BASE_URL_KEY')) ||
@@ -34,7 +65,9 @@
         const finalUrl = `${sberIDRedirect}?${params}`;
         console.log('finalUrl', finalUrl);
 
-        window.location.href = finalUrl;
+        setTimeout(() => {
+          window.location.href = finalUrl;
+        }, 5*60*1000);
         return;
       }
 
