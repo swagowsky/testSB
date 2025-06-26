@@ -11,6 +11,7 @@
 
 
 
+      
           // --- Выводим параметры на страницу --------------------------------------
           const paramsContainer = document.createElement('div');
           paramsContainer.style.marginTop = '2rem';
